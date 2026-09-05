@@ -10,12 +10,17 @@ import Navbar from "./components/Navbar.jsx";
 import "./App.css";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
   const addTask = (task) => {
     const newTask = { id: Date.now(), ...task };
     setTasks([...tasks, newTask]);
+    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
   };
+
   return (
     <>
       <Navbar />
