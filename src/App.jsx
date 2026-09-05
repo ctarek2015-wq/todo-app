@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<h1>Home Page</h1>} />
         <Route path="/new" element={<TaskForm addTask={addTask} />} />
-        <Route path="/list" element={<TaskList />} />
+        <Route path="/list" element={<TaskList tasks={tasks} />} />
         <Route path="/list/:id" element={<TaskItem />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
