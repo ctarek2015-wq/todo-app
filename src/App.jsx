@@ -1,5 +1,5 @@
 // React
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 // Components
 import TaskForm from "./components/TaskForm.jsx";
@@ -16,17 +16,19 @@ function App() {
     return storedTasks ? JSON.parse(storedTasks) : [];
   });
 
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   const addTask = (task) => {
     const newTask = { id: Date.now(), ...task };
     setTasks([...tasks, newTask]);
-    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]));
     navigate(`/list/${newTask.id}`);
   };
 
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     navigate("/list");
   };
 
